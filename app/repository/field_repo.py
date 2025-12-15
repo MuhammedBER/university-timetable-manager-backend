@@ -7,8 +7,13 @@ from app.schemas.field import FieldCreate, FieldUpdate
 
 
 class FieldRepository:
+<<<<<<< HEAD
     def create(self, db: Session, obj_in: FieldCreate) -> Field:
        
+=======
+    def create(self, db: Session, obj_in: FieldCreate) -> Optional[Field]:
+        # Vérifier si un field identique existe déjà
+>>>>>>> main
         existing = (
             db.query(Field)
             .filter(
@@ -19,7 +24,10 @@ class FieldRepository:
             .first()
         )
         if existing:
+<<<<<<< HEAD
             
+=======
+>>>>>>> main
             return None
 
         db_obj = Field(**obj_in.model_dump())
@@ -31,8 +39,13 @@ class FieldRepository:
     def get_all(self, db: Session):
         return db.query(Field).all()
 
+<<<<<<< HEAD
     def get_by_id(self, db: Session, id: int) -> Optional[Field]:
         return db.query(Field).filter(Field.id == id).first()
+=======
+    def get_by_id(self, db: Session, field_id: int) -> Optional[Field]:
+        return db.query(Field).filter(Field.id == field_id).first()
+>>>>>>> main
 
     def update(self, db: Session, field_id: int, obj_in: FieldUpdate) -> Optional[Field]:
         db_obj = db.query(Field).filter(Field.id == field_id).first()

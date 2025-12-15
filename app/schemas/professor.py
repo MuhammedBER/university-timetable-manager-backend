@@ -1,16 +1,16 @@
 from pydantic import BaseModel
+from shared import CourseSimple
 
 class ProfessorBase(BaseModel):
     first_name : str
     last_name : str
-class ProfessorSimple(ProfessorBase):
-    id : int
 class ProfessorCreate(ProfessorBase):
     id_user : int
+    course_ids : list[int] = []
 
 class ProfessorRead(ProfessorBase):
     id : int
-    
+    courses : list[CourseSimple] = []
     class Config:
         from_attributes = True
         
