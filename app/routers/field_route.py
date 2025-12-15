@@ -1,57 +1,95 @@
-from typing import Optional
-
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.models.field import Field
-from app.schemas.field import FieldCreate, FieldUpdate
+from app.api.deps import get_db
+from app.schemas.field import FieldCreate, FieldUpdate, FieldResponse
+from app.services.field_service import field_service
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+router = APIRouter(
+    prefix="/fields",
+    tags=["Fields"],
+)
 
 
-class FieldRepository:
-    def create(self, db: Session, obj_in: FieldCreate) -> Optional[Field]:
-        existing = (
-            db.query(Field)
-            .filter(
-                Field.name == obj_in.name,
-                Field.university_year == obj_in.university_year,
-                Field.user_id == obj_in.user_id,
-            )
-            .first()
+@router.post(
+    "/",
+    response_model=FieldResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_field(
+    field_in: FieldCreate,
+    db: Session = Depends(get_db),
+):
+    db_field = field_service.create(db, field_in)
+    if db_field is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Field already exists for this user and university year",
         )
-        if existing:
-            return None
-
-        db_obj = Field(**obj_in.model_dump())
-        db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
-        return db_obj
-
-    def get_all(self, db: Session):
-        return db.query(Field).all()
-
-    def get_by_id(self, db: Session, field_id: int) -> Optional[Field]:
-        return db.query(Field).filter(Field.id == field_id).first()
-
-    def update(self, db: Session, field_id: int, obj_in: FieldUpdate) -> Optional[Field]:
-        db_obj = db.query(Field).filter(Field.id == field_id).first()
-        if not db_obj:
-            return None
-
-        for key, value in obj_in.model_dump(exclude_unset=True).items():
-            setattr(db_obj, key, value)
-
-        db.commit()
-        db.refresh(db_obj)
-        return db_obj
-
-    def delete(self, db: Session, field_id: int) -> Optional[Field]:
-        db_obj = db.query(Field).filter(Field.id == field_id).first()
-        if not db_obj:
-            return None
-
-        db.delete(db_obj)
-        db.commit()
-        return db_obj
+    return db_field
 
 
-field_repository = FieldRepository()
+@router.get(
+    "/",
+    response_model=list[FieldResponse],
+)
+def get_fields(
+    db: Session = Depends(get_db),
+):
+    return field_service.get_all(db)
+
+
+@router.get(
+    "/{field_id}",
+    response_model=FieldResponse,
+)
+def get_field(
+    field_id: int,
+    db: Session = Depends(get_db),
+):
+    db_field = field_service.get_by_id(db, field_id)
+    if db_field is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Field not found",
+        )
+    return db_field
+
+
+@router.put(
+    "/{field_id}",
+    response_model=FieldResponse,
+)
+def update_field(
+    field_id: int,
+    field_in: FieldUpdate,
+    db: Session = Depends(get_db),
+):
+    db_field = field_service.update(db, field_id, field_in)
+    if db_field is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Field not found",
+        )
+    return db_field
+
+
+@router.delete(
+    "/{field_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_field(
+    field_id: int,
+    db: Session = Depends(get_db),
+):
+    db_field = field_service.delete(db, field_id)
+    if db_field is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Field not found",
+        )
+    return None
