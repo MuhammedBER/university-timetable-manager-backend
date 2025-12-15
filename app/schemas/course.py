@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from enrollment import EnrollmentRead
-from professor import ProfessorSimple
+from shared import ProfessorSimple
 
 class CourseBase(BaseModel):
     name : str
