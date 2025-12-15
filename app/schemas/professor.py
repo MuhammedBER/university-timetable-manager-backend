@@ -6,7 +6,7 @@ class ProfessorBase(BaseModel):
     last_name : str
 class ProfessorCreate(ProfessorBase):
     id_user : int
-    course_ids : list[int]
+    course_ids : list[int] = []
 
 class ProfessorRead(ProfessorBase):
     id : int
