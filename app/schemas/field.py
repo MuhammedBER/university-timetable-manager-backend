@@ -3,7 +3,7 @@ from pydantic import BaseModel
 class FieldBase(BaseModel):
     name :  str
     university_year : str 
-    id_user : int
+    user_id : int
     
 class FieldRead(FieldBase):
     id : int 

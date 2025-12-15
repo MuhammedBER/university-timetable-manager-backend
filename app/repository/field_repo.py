@@ -14,7 +14,7 @@ class FieldRepository:
             .filter(
                 Field.name == obj_in.name,
                 Field.university_year == obj_in.university_year,
-                Field.user_id == obj_in.user_id,
+                Field.user_id== obj_in.user_id,
             )
             .first()
         )

@@ -5,5 +5,5 @@ from .professor import Professor
 from .field import Field
 from .room import Room
 from .type import Type
-from course_type import course_type_association
-from course_professor import course_professor_association
+from .course_type import course_type_association
+from .course_professor import course_professor_association

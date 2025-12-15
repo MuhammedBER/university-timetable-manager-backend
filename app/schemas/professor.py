@@ -4,8 +4,9 @@ from shared import CourseSimple
 class ProfessorBase(BaseModel):
     first_name : str
     last_name : str
+    user_id : int
+    
 class ProfessorCreate(ProfessorBase):
-    id_user : int
     course_ids : list[int] = []
 
 class ProfessorRead(ProfessorBase):

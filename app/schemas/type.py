@@ -3,9 +3,10 @@ from enrollment import EnrollmentRead
 
 class TypeBase(BaseModel):
     name : str
+    user_id : int
     
 class TypeCreate(TypeBase):
-    id_user : int
+    pass
 
 class TypeRead(TypeBase):
     id : int
