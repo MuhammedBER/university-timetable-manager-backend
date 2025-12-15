@@ -1,0 +1,25 @@
+from sqlalchemy.orm import Session
+
+from app.models.field import Field
+from app.schemas.field import FieldCreate, FieldUpdate
+from app.repository.field_repo import field_repository
+
+
+class FieldService:
+    def create(self, db: Session, obj_in: FieldCreate) -> Field | None:
+        return field_repository.create(db, obj_in)
+
+    def get_all(self, db: Session):
+        return field_repository.get_all(db)
+
+    def get_by_id(self, db: Session, field_id: int):
+        return field_repository.get_by_id(db, field_id)
+
+    def update(self, db: Session, field_id: int, obj_in: FieldUpdate):
+        return field_repository.update(db, field_id, obj_in)
+
+    def delete(self, db: Session, field_id: int):
+        return field_repository.delete(db, field_id)
+
+
+field_service = FieldService()
