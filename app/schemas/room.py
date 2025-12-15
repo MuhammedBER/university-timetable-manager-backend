@@ -1,16 +1,16 @@
 from pydantic import BaseModel
 
-class SalleBase(BaseModel):
+class RoomBase(BaseModel):
     num : int
     type : str
-
-class SalleCreate(SalleBase):
     id_user : int
-class SalleRead(SalleBase):
+class RoomCreate(RoomBase):
+    pass
+class RoomRead(RoomBase):
     id : int 
     class Config:
         from_attributes = True
-class SalleUpdate(SalleBase):
+class RoomUpdate(BaseModel):
     num : int | None = None
-    type : int | None = None
+    type : str | None = None
     
