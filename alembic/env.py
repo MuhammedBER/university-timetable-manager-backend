@@ -13,6 +13,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.core.config import settings
 
 from app.models.professor import Professor
+from app.models.user import User
+from app.models.course import Course
+from app.models.type import Type
+from app.models.room import Room
+from app.models.field import Field
+from app.models.course_type import course_type_association
+from app.models.course_professor import course_professor_association
+from app.models.seance import Seance
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
