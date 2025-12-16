@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from shared import CourseSimple
+from .shared import CourseSimple
 
 class ProfessorBase(BaseModel):
     first_name : str

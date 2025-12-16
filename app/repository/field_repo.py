@@ -1,7 +1,6 @@
 from typing import Optional
 
 from sqlalchemy.orm import Session
-
 from app.models.field import Field
 from app.schemas.field import FieldCreate, FieldUpdate
 

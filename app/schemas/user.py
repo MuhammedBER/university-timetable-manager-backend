@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from field import FieldRead
-from room import RoomRead
-from course import CourseRead
-from professor import ProfessorRead
-from session import SessionRead
+from .field import FieldRead
+from .room import RoomRead
+from .course import CourseRead
+from .professor import ProfessorRead
+from .session import SessionRead
 
 class UserBase(BaseModel):
     first_name : str
@@ -27,5 +27,8 @@ class UserUpdate(BaseModel):
     first_name : str | None = None
     last_name : str | None = None
     email : str | None = None
+    
+class UserApi(UserBase):
+    id : int
 
     

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from enrollment import EnrollmentRead
+from .enrollment import EnrollmentRead
 
 class TypeBase(BaseModel):
     name : str

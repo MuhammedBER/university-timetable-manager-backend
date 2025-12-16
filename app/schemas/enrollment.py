@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from shared import CourseSimple
-from shared import TypeSimple
+from .shared import CourseSimple
+from .shared import TypeSimple
 
 class EnrollmentBase(BaseModel):
     id_type : int
