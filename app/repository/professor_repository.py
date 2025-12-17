@@ -1,10 +1,22 @@
 from sqlalchemy.orm import Session
+
+from app.models.course import Course
 from app.models.professor import Professor
 from app.schemas.professor import ProfessorCreate, ProfessorUpdate
 
 class ProfessorRepository:
     def create(self , db : Session , obj_in : ProfessorCreate ) -> Professor:
-        db_obj = Professor(**obj_in.dict())
+        db_obj = Professor(
+            first_name=obj_in.first_name,
+            last_name=obj_in.last_name,
+            user_id=obj_in.user_id
+        )
+        if obj_in.course_ids:
+            courses = db.query(Course).filter(
+                Course.id.in_(obj_in.course_ids)
+            ).all()
+            db_obj.courses = courses
+
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
