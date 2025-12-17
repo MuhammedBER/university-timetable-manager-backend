@@ -7,6 +7,7 @@ class Professor(Base):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
+    hours_for_week = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     user = relationship("User", back_populates="professors", passive_deletes=True)
