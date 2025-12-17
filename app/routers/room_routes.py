@@ -7,7 +7,7 @@ from app.repository.room_repository import RoomRepository
 
 router = APIRouter(prefix="/rooms" , tags = ["Rooms"])
 
-router.post("/", response_model=RoomRead)
+@router.post("/", response_model=RoomRead)
 def create_room_route(room: RoomCreate, db: Session = Depends(get_db)):
     repo = RoomRepository(db)
     return repo.create(room)
@@ -19,7 +19,6 @@ def get_room_route(room_id: int, db: Session = Depends(get_db)):
     if not room:
         raise HTTPException(status_code=404, detail="Room not found")
     return room
-
 @router.get("/", response_model=list[RoomRead])
 def get_rooms_route(db: Session = Depends(get_db)):
     repo = RoomRepository(db)

@@ -1,7 +1,6 @@
 from fastapi import FastAPI
+from app.routers.room_routes import router as room_router
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
+app.include_router(room_router, prefix="/api", tags=["Rooms"])

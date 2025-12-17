@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class RoomBase(BaseModel):
     num : int
-    type : str
+    room_type : str
     user_id : int
     
 class RoomCreate(RoomBase):
@@ -15,5 +15,5 @@ class RoomRead(RoomBase):
         
 class RoomUpdate(BaseModel):
     num : int | None = None
-    type : str | None = None
+    room_type : str | None = None
     
