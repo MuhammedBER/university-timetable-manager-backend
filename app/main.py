@@ -15,6 +15,7 @@ app.add_middleware(
 app.include_router(professor_router)
 app.include_router(course_router)
 
+
 @app.get("/")
 def read_root():
     return {"message": "Hello World"}
