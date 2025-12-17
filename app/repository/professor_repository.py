@@ -11,6 +11,15 @@ class ProfessorRepository:
             last_name=obj_in.last_name,
             user_id=obj_in.user_id
         )
+        # if obj_in.course_ids:
+        #     courses = db.query(Course).filter(
+        #         Course.id.in_(obj_in.course_ids)
+        #     ).all()
+            
+        #     if len(courses) != len(obj_in.course_ids):
+        #         print(f"WARNING: Requested {len(obj_in.course_ids)} courses, found {len(courses)}")
+            
+        #     db_obj.courses = courses
         if obj_in.course_ids:
             courses = db.query(Course).filter(
                 Course.id.in_(obj_in.course_ids)
