@@ -18,9 +18,11 @@ from app.models.course import Course
 from app.models.type import Type
 from app.models.room import Room
 from app.models.field import Field
-from app.models.course_type import course_type_association
+from app.models.enrollment import Enrollment
 from app.models.course_professor import course_professor_association
 from app.models.seance import Seance
+from app.models.time_table import TimeTable
+from app.models.course_field import course_field_association
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
