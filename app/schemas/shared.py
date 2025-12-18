@@ -12,3 +12,7 @@ class ProfessorSimple(BaseModel):
     id : int
     first_name : str
     last_name : str
+
+class FieldSimple(BaseModel):
+    id : int
+    name :  str
