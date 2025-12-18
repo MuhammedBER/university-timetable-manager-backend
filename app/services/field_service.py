@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.models.field import Field
 from app.schemas.field import FieldCreate, FieldUpdate
-from app.repository.field_repo import field_repository
+from app.repository.field_repository import field_repository
 
 
 class FieldService:
