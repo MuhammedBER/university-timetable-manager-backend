@@ -37,3 +37,6 @@ def delete_professor(id: int, db: Session = Depends(get_db)):
     professor = professor_service.delete(db, id)
     if not professor :
         raise HTTPException(status_code=404, detail="Professor not found")
+    print(f"DEBUG: Deleted professor object: {professor}")
+    print(f"DEBUG: Type: {type(professor)}")
+    return professor

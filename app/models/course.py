@@ -53,9 +53,4 @@ class Course(Base):
         passive_deletes=True,
     )
 
-    emplois = relationship(
-        "Emploi",
-        secondary="emploi_course_association",
-        back_populates="courses",
-        cascade="all, delete",
-    )
+
