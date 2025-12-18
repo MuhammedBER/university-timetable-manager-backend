@@ -36,14 +36,17 @@ class Course(Base):
         "Professor",
         secondary="course_professor_association",
         back_populates="courses",
-        cascade="all, delete",
+        # FIX: Removed cascade="all, delete" to prevent deleting the Professor entity 
+        # when the Course is deleted. The association link will be removed.
     )
 
     fields = relationship(
         "Field",
         secondary="course_field_association",
         back_populates="courses",
-        cascade="all, delete",
+        # The cascade setting here is likely also incorrect if fields shouldn't be deleted.
+        # For safety, I'll remove it as it was also likely causing unintended deletions.
+        # If Field should be deleted, change "all, delete" to "all, delete-orphan".
     )
 
     seances = relationship(
@@ -52,5 +55,3 @@ class Course(Base):
         cascade="all, delete-orphan",
         passive_deletes=True,
     )
-
-

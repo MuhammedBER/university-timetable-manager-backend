@@ -3,9 +3,9 @@ from .shared import CourseSimple
 from .shared import TypeSimple
 
 class EnrollmentBase(BaseModel):
-    id_type : int
-    id_course : int 
-    nbr_hour : int 
+    type_id : int
+    course_id : int 
+    nbr_hours : int 
     
 class EnrollmentCreate(EnrollmentBase):
     pass
@@ -15,4 +15,4 @@ class EnrollmentRead(EnrollmentBase):
     class Config:
         from_attributes = True
 class EnrollmentUpdate(BaseModel):
-    nbr_hour : int | None = None
+    nbr_hours : int | None = None

@@ -13,14 +13,11 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-app.include_router(professor_router)
-app.include_router(course_router)
-app.include_router(room_router, prefix="/api", tags=["Rooms"])
+app.include_router(professor_router, prefix="/api")
+app.include_router(course_router, prefix="/api")
+app.include_router(room_router, prefix="/api")
 
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
 
 
 

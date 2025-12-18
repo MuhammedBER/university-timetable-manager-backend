@@ -1,8 +1,8 @@
-"""your message
+"""wa3333333
 
-Revision ID: d2df1a7c23fa
+Revision ID: 850d078ab401
 Revises: 
-Create Date: 2025-12-17 23:30:09.178202
+Create Date: 2025-12-18 01:30:02.780703
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'd2df1a7c23fa'
+revision: str = '850d078ab401'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -42,15 +42,6 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('emplois',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('university_year', sa.String(length=100), nullable=False),
-    sa.Column('semester', sa.Integer(), nullable=False),
-    sa.Column('field', sa.String(length=100), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('fields',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
@@ -71,6 +62,15 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('num', sa.Integer(), nullable=False),
     sa.Column('room_type', sa.String(length=50), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('time_tables',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('university_year', sa.String(length=100), nullable=False),
+    sa.Column('semester', sa.Integer(), nullable=False),
+    sa.Column('field', sa.String(length=100), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -124,10 +124,10 @@ def downgrade() -> None:
     op.drop_table('enrollments')
     op.drop_table('course_professor_association')
     op.drop_table('course_field_association')
+    op.drop_table('time_tables')
     op.drop_table('rooms')
     op.drop_table('professors')
     op.drop_table('fields')
-    op.drop_table('emplois')
     op.drop_table('courses')
     op.drop_table('users')
     op.drop_table('types')
