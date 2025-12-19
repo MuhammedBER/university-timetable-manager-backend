@@ -1,10 +1,21 @@
-from  sqlalchemy import Column, String, Integer , ForeignKey
-from app.database.db import  Base, engine
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
+from app.database.db import Base
 
 class Type(Base):
-    __tablename__ = 'types'
+    __tablename__ = "types"
+
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
 
-    courses = relationship('Course', secondary='course_type_association', back_populates='types',cascade="all, delete")
+    enrollments = relationship(
+        "Enrollment",
+        back_populates="type",
+        cascade="all, delete-orphan",
+    )
+
+    courses = relationship(
+        "Course",
+        secondary="enrollments",
+        viewonly=True,
+    )

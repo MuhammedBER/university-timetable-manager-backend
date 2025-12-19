@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routers.professor_routes import router as professor_router
 from app.routers.course_routes import router as course_router
+from app.routers.room_routes import router as room_router
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.room_routes import router as room_router
 from app.routers.auth import router as auth_router

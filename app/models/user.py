@@ -15,3 +15,4 @@ class User(Base):
     fields = relationship("Field",back_populates="user",cascade="all, delete-orphan", passive_deletes=True)
     courses = relationship("Course",back_populates="user",cascade="all, delete-orphan", passive_deletes=True)
     seances = relationship("Seance",back_populates="user",cascade="all, delete-orphan", passive_deletes=True)
+    time_tables = relationship("TimeTable",back_populates="user",cascade="all, delete-orphan", passive_deletes=True)

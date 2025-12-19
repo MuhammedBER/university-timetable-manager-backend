@@ -1,8 +1,8 @@
-"""your message
+"""Remove entity-deleting cascade from Course.professors
 
-Revision ID: 57ef213d35d8
-Revises: ab203bf6ce96
-Create Date: 2025-12-16 23:37:19.202847
+Revision ID: 5dcc51c09781
+Revises: 850d078ab401
+Create Date: 2025-12-18 03:31:17.727979
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '57ef213d35d8'
-down_revision: Union[str, Sequence[str], None] = 'ab203bf6ce96'
+revision: str = '5dcc51c09781'
+down_revision: Union[str, Sequence[str], None] = '850d078ab401'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
