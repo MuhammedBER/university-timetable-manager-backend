@@ -8,7 +8,7 @@ from app.schemas.auth import LoginSchema
 from app.schemas.user import UserCreate
 from app.repository.user_repository import UserRepository
 
-router = APIRouter(prefix='/auth',tags=["Auth"])
+router = APIRouter(prefix='/api/auth',tags=["Auth"])
 
 @router.post("/login")
 def login(data: LoginSchema, db: Session = Depends(get_db)):
@@ -19,8 +19,7 @@ def login(data: LoginSchema, db: Session = Depends(get_db)):
     
     token = create_access_token(user.id)
     
-    return {"access_token":token,"token_type":"bearer"}
-
+    return {"token":token}
 
 
 @router.post("/register")
