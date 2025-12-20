@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db
-from app.schemas.field import FieldCreate, FieldUpdate, FieldResponse
+from app.schemas.field import FieldCreate, FieldUpdate, FieldRead
 from app.services.field_service import field_service
 
 
@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.post(
     "/",
-    response_model=FieldResponse,
+    response_model=FieldRead,
     status_code=status.HTTP_201_CREATED,
 )
 def create_field(
@@ -32,7 +32,7 @@ def create_field(
 
 @router.get(
     "/",
-    response_model=list[FieldResponse],
+    response_model=list[FieldRead],
 )
 def get_fields(
     db: Session = Depends(get_db),
@@ -42,7 +42,7 @@ def get_fields(
 
 @router.get(
     "/{field_id}",
-    response_model=FieldResponse,
+    response_model=FieldRead,
 )
 def get_field(
     field_id: int,
@@ -59,7 +59,7 @@ def get_field(
 
 @router.put(
     "/{field_id}",
-    response_model=FieldResponse,
+    response_model=FieldRead,
 )
 def update_field(
     field_id: int,

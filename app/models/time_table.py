@@ -8,6 +8,7 @@ class TimeTable(Base):
     university_year = Column(String(100), nullable=False)
     semester = Column(Integer, nullable=False)
     field = Column(String(100), nullable=False)
+    url = Column(String(255), nullable=True)
 
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE") , nullable=False)
 
