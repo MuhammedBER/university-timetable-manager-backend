@@ -23,19 +23,37 @@ def get_db():
         
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
+# def get_current_user(
+#     token: str = Depends(oauth2_scheme),
+#     db: Session = Depends(get_db)
+# )->UserApi:
+#     try:
+#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+#         user_id = int(payload["sub"])
+#         print(payload)
+#     except JWTError:
+#         raise HTTPException(status_code=401, detail=token)
+
+#     user = db.query(User).get(user_id)
+#     if not user:
+#         raise HTTPException(status_code=401, detail="User not found")
+
+#     return UserApi(id=user.id,last_name=user.last_name,first_name=user.first_name,email=user.email)
+
+
 def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
-)->UserApi:
+) -> User:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = int(payload["sub"])
         print(payload)
     except JWTError:
-        raise HTTPException(status_code=401, detail=token)
+        raise HTTPException(status_code=401, detail="Invalid token")
 
     user = db.query(User).get(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
-    return UserApi(id=user.id,last_name=user.last_name,first_name=user.first_name,email=user.email)
+    return user

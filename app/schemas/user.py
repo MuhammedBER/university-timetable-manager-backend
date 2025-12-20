@@ -31,4 +31,9 @@ class UserUpdate(BaseModel):
 class UserApi(UserBase):
     id : int
 
+class UserPasswordUpdate(BaseModel):
+    old_password : str
+    new_password : str
     
+class ResetPasswordRequest(BaseModel):
+    email: str
