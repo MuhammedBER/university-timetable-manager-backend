@@ -8,7 +8,7 @@ from app.schemas.auth import LoginSchema
 from app.schemas.user import UserCreate
 from app.repository.user_repository import UserRepository
 
-router = APIRouter(prefix='/api/auth',tags=["Auth"])
+router = APIRouter(prefix='/auth',tags=["Auth"])
 
 @router.post("/login")
 def login(data: LoginSchema, db: Session = Depends(get_db)):
