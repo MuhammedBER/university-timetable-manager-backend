@@ -31,8 +31,5 @@ app.include_router(course_router, prefix="/api")
 app.include_router(user_router, prefix="/api")
 app.include_router(room_router, prefix="/api")
 
-@app.get("/")
-def root():
-    return {"message": "Welcome to the API"}
 
- 
+    

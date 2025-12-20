@@ -1,8 +1,8 @@
-"""add url to time_tables
+"""your message
 
-Revision ID: 27f352150b0b
-Revises: 23800a143018
-Create Date: 2025-12-20 15:58:20.548927
+Revision ID: eb100f8fb07d
+Revises: 
+Create Date: 2025-12-20 21:57:56.302627
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '27f352150b0b'
-down_revision: Union[str, Sequence[str], None] = '23800a143018'
+revision: str = 'eb100f8fb07d'
+down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

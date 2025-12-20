@@ -11,29 +11,8 @@ router = APIRouter(prefix="/courses", tags=["Courses"])
 
 @router.post("/", response_model=CourseRead, status_code=status.HTTP_201_CREATED)
 def create_course(course_in: CourseCreate, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
-    course_data = course_in.model_dump()
-    course_data["user_id"] = user_id
-    # Temporarily reconstruct using strict logic if needed, but assuming service handles dict or loose model
-    # To strictly satisfy the prompt's request which might be pseudocode-ish regarding the model reconstruction:
-    # We will pass the dictionary if the service accepts it, OR we rely on the fact that we can't instantiate CourseCreate with user_id.
-    # BUT, to make this work without crashing, we should probably pass the dict if possible, or force the field.
-    # However, restricted from modifying service.
-    # Let's try to inject it into the model instance if Pydantic allows setattr, or just assume the prompt logic was slightly off for pure Pydantic models.
-    # Wait, I'll stick to the prompt's Pattern 1:
-    # {entity}_with_user = {Entity}Create(**{entity}_data)
-    # If this fails, it fails. But I'll use `model_construct` to bypass validation if needed? No, `**` calls init.
-    # I'll modify the line to:
-    # course_with_user = CourseCreate.model_construct(**course_data)
-    # model_construct bypasses validation and allows setting extra fields if they are compatible?
-    # Actually, model_construct is safer here if we want to attach user_id to a model that doesn't have it defined.
-    # CHECK: Does CourseCreate (lines 10-15) allow extra? Default is 'ignore'.
-    # If I use `CourseCreate(**course_data)`, user_id is ignored.
-    # I will stick to the requested code structure but be aware.
-    course_with_user = CourseCreate(**course_data)
-    # HACK: If user_id was ignored, we manually set it.
-    if not hasattr(course_with_user, "user_id"):
-        object.__setattr__(course_with_user, "user_id", user_id)
-    return course_service.create(db, course_with_user)
+    course_with_user = CourseCreate(**course_in.model_dump())
+    return course_service.create(db, course_with_user, user_id)
 
 
 @router.get("/", response_model=list[CourseRead])

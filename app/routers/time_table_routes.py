@@ -10,14 +10,8 @@ router = APIRouter(prefix="/time-tables", tags=["time_tables"])
 
 @router.post("", response_model=TimeTableRead, status_code=status.HTTP_201_CREATED)
 def create_time_table(time_table_in: TimeTableCreate, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
-    data = time_table_in.model_dump()
-    data["user_id"] = user_id
-    
-    time_table_with_user = TimeTableCreate(**data)
-    if not hasattr(time_table_with_user, "user_id"):
-        object.__setattr__(time_table_with_user, "user_id", user_id)
-        
-    return time_table_service.create(db, time_table_with_user)
+    time_table_with_user = TimeTableCreate(**time_table_in.model_dump())
+    return time_table_service.create(db, time_table_with_user, user_id)
 
 @router.get("", response_model=List[TimeTableRead])
 def get_time_tables(db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):

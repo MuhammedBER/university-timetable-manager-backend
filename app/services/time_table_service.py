@@ -4,8 +4,8 @@ from app.schemas.time_table import TimeTableCreate, TimeTableUpdate
 from app.repository.time_table_repository import time_table_repository
 
 class TimeTableService:
-    def create(self, db: Session, obj_in: TimeTableCreate) -> TimeTable:
-        return time_table_repository.create(db, obj_in)
+    def create(self, db: Session, obj_in: TimeTableCreate, user_id: int) -> TimeTable:
+        return time_table_repository.create(db, obj_in, user_id)
 
     def get_all(self, db: Session):
         return time_table_repository.get_all(db)

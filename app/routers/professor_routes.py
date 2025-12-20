@@ -11,11 +11,8 @@ router = APIRouter(prefix="/professors", tags=["professors"])
 
 @router.post("", response_model=ProfessorRead,status_code=status.HTTP_201_CREATED)
 def create_professor(professor_in: ProfessorCreate , db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
-    professor_data = professor_in.model_dump()
-    professor_data["user_id"] = user_id
-    professor_with_user = ProfessorCreate(**professor_data)
-    # The service expects a Pydantic model. Since we modified ProfessorCreate to NOT have user_id, 
-    # but the underlying model/service likely expects it or the model has it, we need to be careful.
+    professor_with_user = ProfessorCreate(**professor_in.model_dump())
+    return professor_service.create(db, professor_with_user, user_id)
     # Wait, the prompt says: "REMOVE user_id field from {Entity}Create class ONLY. Keep user_id in {Entity}Read class."
     # And specifically for Pattern 1 (Service): 
     # {entity}_data = {entity}_in.model_dump()

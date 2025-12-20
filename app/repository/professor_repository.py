@@ -5,11 +5,11 @@ from app.models.professor import Professor
 from app.schemas.professor import ProfessorCreate, ProfessorUpdate, ProfessorRead
 
 class ProfessorRepository:
-    def create(self , db : Session , obj_in : ProfessorCreate ) -> Professor:
+    def create(self , db : Session , obj_in : ProfessorCreate, user_id: int ) -> Professor:
         db_obj = Professor(
             first_name=obj_in.first_name,
             last_name=obj_in.last_name,
-            user_id=obj_in.user_id,
+            user_id=user_id,
             hours_for_week=obj_in.hours_for_week
         )
         # if obj_in.course_ids:

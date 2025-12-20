@@ -3,12 +3,12 @@ from app.models.time_table import TimeTable
 from app.schemas.time_table import TimeTableCreate, TimeTableUpdate
 
 class TimeTableRepository:
-    def create(self, db: Session, obj_in: TimeTableCreate) -> TimeTable:
+    def create(self, db: Session, obj_in: TimeTableCreate, user_id: int) -> TimeTable:
         db_obj = TimeTable(
             university_year=obj_in.university_year,
             semester=obj_in.semester,
             field=obj_in.field,
-            user_id=obj_in.user_id,
+            user_id=user_id,
             url=obj_in.url
         )
         db.add(db_obj)

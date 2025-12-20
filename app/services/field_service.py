@@ -6,8 +6,8 @@ from app.repository.field_repo import field_repository
 
 
 class FieldService:
-    def create(self, db: Session, obj_in: FieldCreate) -> Field | None:
-        return field_repository.create(db, obj_in)
+    def create(self, db: Session, obj_in: FieldCreate, user_id: int) -> Field | None:
+        return field_repository.create(db, obj_in, user_id)
 
     def get_all(self, db: Session):
         return field_repository.get_all(db)

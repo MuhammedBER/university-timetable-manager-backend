@@ -6,13 +6,13 @@ from app.schemas.field import FieldCreate, FieldUpdate
 from app.models.course import Course
 
 class FieldRepository:
-    def create(self, db: Session, obj_in: FieldCreate) -> Optional[Field]:
+    def create(self, db: Session, obj_in: FieldCreate, user_id: int) -> Optional[Field]:
         # Vérifier si un field identique existe déjà
         existing = (
             db.query(Field)
             .filter(
                 Field.name == obj_in.name,             
-                Field.user_id== obj_in.user_id,
+                Field.user_id== user_id,
             )
             .first()
         )
@@ -21,7 +21,7 @@ class FieldRepository:
 
         db_obj = Field(
             name=obj_in.name,
-            user_id=obj_in.user_id,
+            user_id=user_id,
         )
         courses = []
         if obj_in.course_ids:

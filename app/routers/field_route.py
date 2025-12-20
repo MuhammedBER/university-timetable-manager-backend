@@ -22,14 +22,8 @@ def create_field(
     db: Session = Depends(get_db),
     user_id: int = Depends(get_current_user_id),
 ):
-    field_data = field_in.model_dump()
-    field_data["user_id"] = user_id
-    
-    field_with_user = FieldCreate(**field_data)
-    if not hasattr(field_with_user, "user_id"):
-        object.__setattr__(field_with_user, "user_id", user_id)
-
-    db_field = field_service.create(db, field_with_user)
+    field_with_user = FieldCreate(**field_in.model_dump())
+    db_field = field_service.create(db, field_with_user, user_id)
     if db_field is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

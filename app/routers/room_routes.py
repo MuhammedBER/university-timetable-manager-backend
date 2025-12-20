@@ -10,15 +10,8 @@ router = APIRouter(prefix="/rooms" , tags = ["Rooms"])
 @router.post("/", response_model=RoomRead)
 def create_room_route(room: RoomCreate, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
     repo = RoomRepository(db)
-    room_data = room.model_dump()
-    room_data["user_id"] = user_id
-    
-    # Manually attach user_id since RoomCreate structure doesn't support it anymore
-    room_with_user = RoomCreate(**room_data)
-    if not hasattr(room_with_user, "user_id"):
-        object.__setattr__(room_with_user, "user_id", user_id)
-        
-    return repo.create(room_with_user)
+    # Pass room object and user_id explicitly to the repository
+    return repo.create(room, user_id)
 
 @router.get("/{room_id}", response_model=RoomRead)
 def get_room_route(room_id: int, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
