@@ -5,7 +5,6 @@ from.shared import FieldSimple
 
 class CourseBase(BaseModel):
     name : str
-    user_id : int
 
 class CourseCreate(CourseBase):
     professor_ids : list[int] = []

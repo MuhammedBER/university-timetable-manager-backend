@@ -38,8 +38,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
         print(f"🔍 Middleware checking path: {request.url.path}")
         
         # Check if the path should be excluded from authentication
-        if self._is_excluded_path(request.url.path):
-            print(f"✅ Path excluded from auth: {request.url.path}")
+        if self._is_excluded_path(request.url.path) or request.method == "OPTIONS":
+            print(f"✅ Path excluded from auth (or OPTIONS): {request.url.path}")
             return await call_next(request)
         
         # Get the Authorization header
@@ -89,9 +89,11 @@ class AuthMiddleware(BaseHTTPMiddleware):
                     content={"detail": "User not found"}
                 )
             
-            # Add user to request state for access in route handlers (optional)
+            # Add user and user_id to request state for access in route handlers
             request.state.user = user
             request.state.user_id = user_id
+            
+            print(f"✅ User authenticated: user_id={user_id}")
             
         except JWTError as e:
             return JSONResponse(

@@ -5,14 +5,13 @@ from app.routers.room_routes import router as room_router
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.auth import router as auth_router
 from app.routers.user import router as user_router
-<<<<<<< HEAD
 from app.middleware.auth_middleware import AuthMiddleware
-
-=======
 from app.routers.field_route import router as field_router
 from app.routers.time_table_routes import router as time_table_router
->>>>>>> ffb52096d9913ad0503bbf89e913c731161eafbf
+
 app = FastAPI()
+
+app.add_middleware(AuthMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,12 +21,11 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-<<<<<<< HEAD
-app.add_middleware(AuthMiddleware)
-
 
 app.include_router(auth_router, prefix="/api")
-
+app.include_router(user_router, prefix="/api", tags=["Users"])
+app.include_router(field_router, prefix="/api")
+app.include_router(time_table_router, prefix="/api")
 app.include_router(professor_router, prefix="/api")
 app.include_router(course_router, prefix="/api")
 app.include_router(user_router, prefix="/api")
@@ -36,12 +34,5 @@ app.include_router(room_router, prefix="/api")
 @app.get("/")
 def root():
     return {"message": "Welcome to the API"}
-=======
-app.include_router(auth_router)
-app.include_router(user_router, prefix="/api", tags=["Users"])
-app.include_router(professor_router, prefix="/api")
-app.include_router(course_router, prefix="/api")
-app.include_router(room_router, prefix="/api")
-app.include_router(field_router, prefix="/api")
-app.include_router(time_table_router, prefix="/api")
->>>>>>> ffb52096d9913ad0503bbf89e913c731161eafbf
+
+ 

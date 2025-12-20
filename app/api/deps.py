@@ -1,6 +1,6 @@
 import os
 from app.database.db import SessionLocal
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Request
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
@@ -39,3 +39,14 @@ def get_current_user(
         raise HTTPException(status_code=401, detail="User not found")
 
     return UserApi(id=user.id,last_name=user.last_name,first_name=user.first_name,email=user.email)
+
+
+def get_current_user_id(request: Request) -> int:
+    """
+    Extract user_id from request state (set by AuthMiddleware).
+    Use this dependency when you only need the user_id, not the full user object.
+    """
+    user_id = getattr(request.state, "user_id", None)
+    if not user_id:
+        raise HTTPException(status_code=401, detail="User not authenticated")
+    return user_id

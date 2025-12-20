@@ -6,7 +6,6 @@ class TimeTableBase(BaseModel):
     semester: int
     field: str
     url: Optional[str] = None
-    user_id: int
 
 class TimeTableCreate(TimeTableBase):
     pass
@@ -15,7 +14,6 @@ class TimeTableUpdate(BaseModel):
     university_year: Optional[str] = None
     semester: Optional[int] = None
     field: Optional[str] = None
-    user_id: Optional[int] = None
     url: Optional[str] = None
     
 

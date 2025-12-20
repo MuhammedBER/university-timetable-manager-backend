@@ -4,10 +4,12 @@ from .shared import CourseSimple
 class ProfessorBase(BaseModel):
     first_name : str
     last_name : str
-    user_id : int
     hours_for_week : int
     
-class ProfessorCreate(ProfessorBase):
+class ProfessorCreate(BaseModel):
+    first_name : str
+    last_name : str
+    hours_for_week : int
     course_ids : list[int] = []
 
 class ProfessorRead(ProfessorBase):
