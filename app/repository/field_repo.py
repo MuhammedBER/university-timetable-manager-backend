@@ -3,7 +3,7 @@ from typing import Optional
 from sqlalchemy.orm import Session
 from app.models.field import Field
 from app.schemas.field import FieldCreate, FieldUpdate
-
+from app.models.course import Course
 
 class FieldRepository:
     def create(self, db: Session, obj_in: FieldCreate) -> Optional[Field]:
@@ -11,8 +11,7 @@ class FieldRepository:
         existing = (
             db.query(Field)
             .filter(
-                Field.name == obj_in.name,
-                Field.university_year == obj_in.university_year,
+                Field.name == obj_in.name,             
                 Field.user_id== obj_in.user_id,
             )
             .first()
@@ -20,7 +19,16 @@ class FieldRepository:
         if existing:
             return None
 
-        db_obj = Field(**obj_in.model_dump())
+        db_obj = Field(
+            name=obj_in.name,
+            user_id=obj_in.user_id,
+        )
+        courses = []
+        if obj_in.course_ids:
+            courses = db.query(Course).filter(
+                Course.id.in_(obj_in.course_ids)
+            ).all()
+        db_obj.courses = courses
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
@@ -37,7 +45,18 @@ class FieldRepository:
         if not db_obj:
             return None
 
-        for key, value in obj_in.model_dump(exclude_unset=True).items():
+        update_data = obj_in.model_dump(exclude_unset=True)
+        if "course_ids" in update_data:
+            course_ids = update_data.pop("course_ids")
+            if course_ids is not None:
+                courses = db.query(Course).filter(
+                    Course.id.in_(course_ids)
+                ).all()
+                db_obj.courses = courses
+            else:
+                db_obj.courses = []
+
+        for key, value in update_data.items():
             setattr(db_obj, key, value)
 
         db.commit()
