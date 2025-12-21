@@ -22,7 +22,7 @@ from app.models.enrollment import Enrollment
 from app.models.course_professor import course_professor_association
 from app.models.seance import Seance
 from app.models.time_table import TimeTable
-from app.models.course_field import course_field_association
+from app.models.course_field import CourseField
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

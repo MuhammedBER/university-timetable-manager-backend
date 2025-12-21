@@ -17,3 +17,5 @@
 7- alembic upgrade head
 
 8- don't ask me
+
+pip install this you idiot: pip install google-generativeai

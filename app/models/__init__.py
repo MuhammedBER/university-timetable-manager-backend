@@ -7,5 +7,5 @@ from .room import Room
 from .type import Type
 from .enrollment import Enrollment
 from .course_professor import course_professor_association
-from .course_field import course_field_association
+from .course_field import CourseField
 from .time_table import TimeTable
