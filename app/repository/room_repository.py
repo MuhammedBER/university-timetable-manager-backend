@@ -6,8 +6,10 @@ class RoomRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def create(self, room: RoomCreate) -> Room:
-        db_room = Room(**room.dict())
+    def create(self, room: RoomCreate, user_id: int) -> Room:
+        room_data = room.dict()
+        room_data['user_id'] = user_id
+        db_room = Room(**room_data)
         self.db.add(db_room)
         self.db.commit()
         self.db.refresh(db_room)

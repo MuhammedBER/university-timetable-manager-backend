@@ -4,8 +4,8 @@ from app.schemas.professor import ProfessorCreate, ProfessorUpdate
 from app.repository.professor_repository import professor_repository
 
 class ProfessorService:
-    def create(self,db:Session ,obj_in:ProfessorCreate) -> Professor:
-        return professor_repository.create(db,obj_in)
+    def create(self,db:Session ,obj_in:ProfessorCreate, user_id: int) -> Professor:
+        return professor_repository.create(db,obj_in, user_id)
 
     def get_all(self,db:Session ) :
         return professor_repository.get_all(db)

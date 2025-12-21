@@ -8,11 +8,11 @@ from app.schemas.course import CourseCreate, CourseUpdate
 
 
 class CourseRepository:
-    def create(self, db: Session, obj_in: CourseCreate) -> Course:
+    def create(self, db: Session, obj_in: CourseCreate, user_id: int) -> Course:
         # Create the course base object
         db_obj = Course(
             name=obj_in.name,
-            user_id=obj_in.user_id,
+            user_id=user_id,
         )
         
         # 1. Handle professor and field associations

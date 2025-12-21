@@ -3,7 +3,6 @@ from pydantic import BaseModel
 class RoomBase(BaseModel):
     num : int
     room_type : str
-    user_id : int
     
 class RoomCreate(RoomBase):
     pass

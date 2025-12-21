@@ -5,9 +5,9 @@ from app.schemas.user import UserUpdate, UserBase, UserApi
 from app.models.user import User
 from app.repository.user_repository import UserRepository
 
-router = APIRouter(prefix='/api',tags=["User"])
+router = APIRouter(prefix='/user')
 
-@router.get("/user")
+@router.get("/")
 def getUser(current_user = Depends(get_current_user)):
     return UserApi(
         id=current_user.id,

@@ -3,7 +3,6 @@ from .shared import CourseSimple
 
 class FieldBase(BaseModel):
     name :  str
-    user_id : int
     
 class FieldRead(FieldBase):
     id : int 

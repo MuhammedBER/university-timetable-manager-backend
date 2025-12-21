@@ -6,8 +6,8 @@ from app.repository.course_repository import course_repository
 
 
 class CourseService:
-    def create(self, db: Session, obj_in: CourseCreate) -> Course:
-        return course_repository.create(db, obj_in)
+    def create(self, db: Session, obj_in: CourseCreate, user_id: int) -> Course:
+        return course_repository.create(db, obj_in, user_id)
 
     def get_all(self, db: Session):
         return course_repository.get_all(db)

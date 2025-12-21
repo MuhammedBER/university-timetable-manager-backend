@@ -12,7 +12,7 @@ from app.auth.password import hash_password
 import secrets
 from app.utils.email import send_email
 
-router = APIRouter(prefix='/api/auth',tags=["Auth"])
+router = APIRouter(prefix='/auth',tags=["Auth"])
 
 @router.post("/login")
 def login(data: LoginSchema, db: Session = Depends(get_db)):
