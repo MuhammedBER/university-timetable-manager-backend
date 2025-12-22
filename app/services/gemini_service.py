@@ -41,10 +41,16 @@ class GeminiService:
         Generate a set of "Seances" (Sessions) that satisfy these constraints:
         1. Professors cannot be in two places at once.
         2. Rooms cannot be used by two classes at once.
-        3. Respect the total hours required for each course/professor if specified.
-        4. Output MUST be a strictly valid JSON object with a single key "seances".
-        5. COVERAGE: You MUST generate a full week of sessions (Monday-Saturday) for EVERY combination of (Field + Semester) present in the input.
-        6. GLOBAL CONFLICTS: While generating for each field/semester, ensure that shared resources (Professors and Rooms) are NOT double-booked across different fields/semesters.
+        3. MANDATORY WEEKLY LOAD: For each course in a given field and semester, you MUST generate exactly 6 hours of sessions per week, split strictly as:
+           - 2 hours "Cours" (Lecture)
+           - 2 hours "TD" (Tutorial)
+           - 2 hours "TP" (Practical)
+           You must identify the correct "type_id" for Cours, TD, and TP from the provided 'types' list.
+        4. SATURDAY RULE: Saturday is OPTIONAL. Try to fit all sessions from Monday to Friday. Only use Saturday if it is impossible to fit the schedule otherwise.
+        5. Output MUST be a strictly valid JSON object with a single key "seances".
+        6. COVERAGE: Generate constraints for EVERY combination of (Field + Semester).
+        7. GLOBAL CONFLICTS: No shared resource double-booking.
+        8. DISTRIBUTION: Avoid scheduling all sessions of the same course on the same day if possible.
         
         DAY CONSTRAINTS:
         The value of "day" must be one of the following only:

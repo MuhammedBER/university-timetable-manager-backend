@@ -46,4 +46,11 @@ class SeanceRepository:
             
         return all_db_objects
 
+    def delete_all(self, db: Session, user_id: int):
+        """
+        Deletes all seances for a given user.
+        """
+        db.query(Seance).filter(Seance.user_id == user_id).delete()
+        db.commit()
+
 seance_repository = SeanceRepository()

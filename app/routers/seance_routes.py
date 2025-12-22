@@ -25,3 +25,17 @@ def bulk_create_seances(
         return {"message": "Seances created successfully", "count": len(created_seances)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.delete("/")
+def delete_all_seances(
+    db: Session = Depends(get_db),
+    user_id: int = Depends(get_current_user_id)
+):
+    """
+    Deletes all seances for the current user.
+    """
+    try:
+        seance_repository.delete_all(db, user_id)
+        return {"message": "All seances deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
