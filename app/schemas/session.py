@@ -10,6 +10,7 @@ class SessionBase(BaseModel):
     field_id : int
     user_id : int
     room_id : int
+    type_id : int
 
 class SessionCreate(SessionBase):
     pass

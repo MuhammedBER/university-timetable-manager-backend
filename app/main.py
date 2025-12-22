@@ -28,8 +28,13 @@ app.include_router(field_router, prefix="/api")
 app.include_router(time_table_router, prefix="/api")
 app.include_router(professor_router, prefix="/api")
 app.include_router(course_router, prefix="/api")
+from app.routers.generation_routes import router as generation_router
+from app.routers.seance_routes import router as seance_router
+
 app.include_router(user_router, prefix="/api")
 app.include_router(room_router, prefix="/api")
+app.include_router(generation_router, prefix="/api")
+app.include_router(seance_router, prefix="/api")
 
 
     

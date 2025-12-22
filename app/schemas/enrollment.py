@@ -10,8 +10,7 @@ class EnrollmentBase(BaseModel):
 class EnrollmentCreate(EnrollmentBase):
     pass
 class EnrollmentRead(EnrollmentBase):
-    courses : list [CourseSimple] | None = None
-    types : list [TypeSimple] | None = None
+    pass
     class Config:
         from_attributes = True
 class EnrollmentUpdate(BaseModel):

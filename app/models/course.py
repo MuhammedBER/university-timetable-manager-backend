@@ -40,13 +40,17 @@ class Course(Base):
         # when the Course is deleted. The association link will be removed.
     )
 
+    course_fields = relationship(
+        "CourseField",
+        back_populates="course",
+        cascade="all, delete-orphan",
+    )
+
     fields = relationship(
         "Field",
-        secondary="course_field_association",
+        secondary="course_fields",
         back_populates="courses",
-        # The cascade setting here is likely also incorrect if fields shouldn't be deleted.
-        # For safety, I'll remove it as it was also likely causing unintended deletions.
-        # If Field should be deleted, change "all, delete" to "all, delete-orphan".
+        viewonly=True,
     )
 
     seances = relationship(

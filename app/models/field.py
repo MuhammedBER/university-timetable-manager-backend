@@ -19,10 +19,17 @@ class Field(Base):
         back_populates="fields",
         passive_deletes=True,
     )
+    course_fields = relationship(
+        "CourseField",
+        back_populates="field",
+        cascade="all, delete-orphan",
+    )
+
     courses = relationship(
         "Course",
-        secondary="course_field_association",
+        secondary="course_fields",
         back_populates="fields",
+        viewonly=True,
     )
 
     seances = relationship(

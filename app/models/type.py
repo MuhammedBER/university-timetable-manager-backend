@@ -19,3 +19,5 @@ class Type(Base):
         secondary="enrollments",
         viewonly=True,
     )
+
+    seances = relationship("Seance", back_populates="type")

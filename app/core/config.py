@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 2880
+    GEMINI_API_KEY: str | None = None
     
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
