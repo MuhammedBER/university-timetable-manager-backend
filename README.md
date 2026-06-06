@@ -75,6 +75,14 @@ http://localhost:8000/docs
 - 🌐 Frontend: [university-timetable-manager-frontend](https://github.com/MuhammedBER/university-timetable-manager-frontend)
 
 ---
+## 👥 Contributors
+
+| Name | GitHub |
+|---|---|
+| Mohamed Berhaila | [@MuhammedBER](https://github.com/MuhammedBER) |
+| Mahdi Daoudi | [@MahdiDaoudi](https://github.com/MahdiDaoudi) |
+| Ismail | [@Ismail10102](https://github.com/Ismail10102) |
+| Anass Kaoukabi | [@anasskaoukabi](https://github.com/anasskaoukabi) |
 
 ## 👨‍💻 Author
 
